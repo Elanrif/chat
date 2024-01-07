@@ -7,6 +7,9 @@ import com.manar.elanrif.chat_spring.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Service
 public class MessageServiceImpl implements MessageService{
 
@@ -23,6 +26,8 @@ public class MessageServiceImpl implements MessageService{
 
         if(sender !=null && receiver !=null){
 
+            message.setUpdatedAt(LocalDateTime.now());
+            message.setCreatedAt(LocalDateTime.now());
             sender.addSenderMessage(message);
             receiver.addReceiverMessage(message);
 
@@ -34,7 +39,12 @@ public class MessageServiceImpl implements MessageService{
 
     @Override
     public Message updateMessage(Message message) {
-        return messageRepository.save(message);
+        Message msg = messageRepository.findById(message.getId()).orElse(null) ;
+
+        msg.setUpdatedAt(LocalDateTime.now());
+        msg.setContent(message.getContent());
+
+        return messageRepository.save(msg);
     }
 
     @Override

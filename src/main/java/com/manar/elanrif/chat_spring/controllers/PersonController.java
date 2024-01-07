@@ -25,14 +25,20 @@ private PersonRepository personRepository ;
         return personService.register(person);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Person login(@RequestBody  Person person) {
         return personService.login(person);
     }
 
-    @GetMapping("/logout")
+
+    @PostMapping("/logout")
     public void logout(@RequestBody  Person person) {
         personService.logout(person);
+    }
+
+    @GetMapping
+    public List<Person> getAll() {
+       return personService.getAllPersonnes();
     }
 
     @PutMapping

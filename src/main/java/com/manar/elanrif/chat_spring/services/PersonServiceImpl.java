@@ -5,6 +5,8 @@ import com.manar.elanrif.chat_spring.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PersonServiceImpl implements PersonService{
 
@@ -18,14 +20,19 @@ public class PersonServiceImpl implements PersonService{
     @Override
     public Person login(Person person) {
 
-        Person pers = personRepository.findById(person.getId()).orElse(null);
-        if(pers != null && pers.getPassword() == person.getPassword() && pers.getEmail() == person.getEmail() ){
+        Person pers = personRepository.findByEmailAndPassword(person.getEmail(),person.getPassword());
+        if(pers != null ){
 
             pers.setIsConnected(true);
 
             return personRepository.save(pers) ;
         }
         return null;
+    }
+
+    @Override
+    public List<Person> getAllPersonnes() {
+        return personRepository.findAll();
     }
 
     @Override

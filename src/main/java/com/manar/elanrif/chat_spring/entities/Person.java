@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-/*@DynamicUpdate*/
+@DynamicUpdate
 @Entity
 public class Person {
     @Id
@@ -21,6 +21,8 @@ public class Person {
     private String name ;
     private Boolean isConnected = false ;
     private String email ;
+    private String image ;
+    private String metier ;
     private String password;
 
     @JsonIgnore
